@@ -1,32 +1,47 @@
-import logo from "./logo.svg";
 import "./App.css";
-
-fetch("https://heroku-server-intership.herokuapp.com/")
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    console.log(data);
-  });
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Suspense } from "react";
+import MainPage from "./MainPage";
+import { RequireAuth } from "./hoc/RequireAuth";
+import ClientPage from "./AdminComponents/Components/ClientsPage/ClientPage";
+import MastersPage from "./AdminComponents/Components/MastersPage/MastersPage";
+import TownsPage from "./AdminComponents/Components/TownsPage/TownsPage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Suspense fallback="loading">
+      <div className="App">
+        <Router>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route
+              path="/clients"
+              element={
+                <RequireAuth>
+                  <ClientPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/masters"
+              element={
+                <RequireAuth>
+                  <MastersPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/towns"
+              element={
+                <RequireAuth>
+                  <TownsPage />
+                </RequireAuth>
+              }
+            />
+          </Routes>
+        </Router>
+      </div>
+    </Suspense>
   );
 }
 
