@@ -15,7 +15,9 @@ export const DeleteButton = (props) => {
       className={style[props.buttonType]}
       onClick={async () => {
         await Api.delete(props.url, props.id);
+        console.log("delete done");
         dispatch(setPageRerender());
+        console.log("dispatch done");
       }}
     >
       {t(`adminPage.${props.buttonType}`)}
