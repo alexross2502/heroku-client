@@ -25,7 +25,7 @@ const ClientPage = () => {
     mode: "onBlur",
   });
   async function newClient(data) {
-    clientSave(data.firstName, data.email);
+    await clientSave(data.firstName, data.email);
     dispatch(setPageRerender());
   }
 

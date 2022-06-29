@@ -25,7 +25,7 @@ const TownsPage = () => {
     mode: "onBlur",
   });
   async function newTown(data) {
-    townSave(data.name);
+    await townSave(data.name);
     dispatch(setPageRerender());
   }
   const townsListItem = townsList.map((item) => {

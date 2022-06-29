@@ -28,7 +28,7 @@ const MastersPage = () => {
     mode: "onBlur",
   });
   async function newMaster(data) {
-    masterSave(data.name, data.surname, data.rating, data.town);
+    await masterSave(data.name, data.surname, data.rating, data.town);
     dispatch(setPageRerender());
   }
 

@@ -13,8 +13,8 @@ export const DeleteButton = (props) => {
     <button
       type="button"
       className={style[props.buttonType]}
-      onClick={() => {
-        Api.delete(props.url, props.id);
+      onClick={async () => {
+        await Api.delete(props.url, props.id);
         dispatch(setPageRerender());
       }}
     >
