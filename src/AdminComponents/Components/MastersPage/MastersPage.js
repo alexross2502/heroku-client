@@ -74,7 +74,16 @@ const MastersPage = () => {
             <option value="4">4</option>
             <option value="5">5</option>
           </select>
-          <select {...register("town")} className={style.select}>
+          <select
+            {...register("town", {
+              required: `${t("adminPopup.emptyField")}`,
+            })}
+            className={style.select}
+            required
+          >
+            <option disabled selected value="">
+              Выберите город
+            </option>
             {townListItem}
           </select>
           <FormButton buttonType="saveButton" />
