@@ -19,6 +19,12 @@ export const LeftSideMenu = (props) => {
       <div className={style.switchButton} onClick={() => navigate("/towns")}>
         {t("adminPage.towns")}
       </div>
+      <div
+        className={style.switchButton}
+        onClick={() => navigate("/reservation")}
+      >
+        {t("adminPage.reservation")}
+      </div>
     </div>
   );
 };

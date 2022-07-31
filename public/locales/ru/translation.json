@@ -28,14 +28,19 @@
     "mastersPage": {
         "header": "Управление списком мастеров:"
     },
+    "reservationPage": {
+        "header": "Управление списком броней:"
+    },
     "adminPage": {
         "header": "Управление списками сайта:",
         "towns" : "Города",
         "clients" : "Клиенты",
         "masters" : "Мастера",
+        "reservation": "Брони",
         "addTown" : "Добавить город:",
         "addClient" : "Добавить клиента:",
         "addMaster" : "Добавить мастера:",
+        "addReservation": "Добавить бронь",
         "list" : "Список:",
         "saveButton" : "Сохранить",
         "updateButton" : "Обновить",
