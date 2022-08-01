@@ -41,18 +41,35 @@ const ModalOrder = () => {
     );
   });
 
-  const dataParser = (date, time) => {
+  let monthNumber = [
+    "",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const dateParser = (date, time) => {
     let dateObj = {};
-    dateObj.day = date.toString().slice(8, 10);
-    dateObj.month = date.toString().slice(4, 7);
-    dateObj.year = date.toString().slice(11, 15);
+    let temporary = date.toString().split(" ");
+    dateObj.date = `${temporary[2]}.${monthNumber.indexOf(temporary[1])}.${
+      temporary[3]
+    }`;
     dateObj.time = time.toString().slice(16, 18);
     return dateObj;
   };
 
   const formSend = (data) => {
     console.log(data);
-    console.log(dataParser(selectedDate, selectedTime));
+    console.log(dateParser(selectedDate, selectedTime));
   };
 
   return (
@@ -102,7 +119,16 @@ const ModalOrder = () => {
               <option value="3">3</option>
             </select>
             <p>{t("order.town")}</p>
-            <select {...register("town")} className={style.select}>
+            <select
+              {...register("town", {
+                required: `${t("adminPopup.emptyField")}`,
+              })}
+              className={style.select}
+              required
+            >
+              <option disabled selected value="">
+                Выберите город
+              </option>
               {townListItem}
             </select>
             <p>{t("order.date")}</p>

@@ -43,7 +43,7 @@ export function ReservationForm(props) {
         <input
           className={style.inputText}
           type="text"
-          Value={"Номер города : " + props.data.towns_id}
+          value={"Номер города : " + props.data.towns_id}
           disabled
         ></input>
       </div>
