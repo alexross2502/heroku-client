@@ -57,20 +57,61 @@ const ModalOrder = () => {
     "Dec",
   ];
 
-  const dateParser = (date, time) => {
+  const dateParser = (date, time, size) => {
     let dateObj = {};
     let temporary = date.toString().split(" ");
     dateObj.date = `${temporary[2]}.${monthNumber.indexOf(temporary[1])}.${
       temporary[3]
     }`;
-    dateObj.time = time.toString().slice(16, 18);
+
+    dateObj.time = [
+      +time.toString().slice(16, 18),
+      +time.toString().slice(16, 18) + Number(size),
+    ];
+
     return dateObj;
   };
 
-  const formSend = (data) => {
-    console.log(data);
-    console.log(dateParser(selectedDate, selectedTime));
-  };
+  async function formSend(data) {
+    let date = dateParser(selectedDate, selectedTime, data.size);
+
+    let includingTowns = await Api.getAvailable(
+      "reservation",
+      townsList[townsList.findIndex((el) => el.name == data.town)].id
+    );
+    let includingReservation = includingTowns.filter(
+      (el) => el.day == date.date
+    );
+
+    let includingMasters = await Api.getAvailable("masters", data.town);
+
+    let finaleMasters = [];
+    includingMasters.forEach((el) => {
+      finaleMasters.push(el.id);
+    });
+
+    let timeStart = date.time[0];
+    let timeEnd = date.time[1];
+    function checkInterval(reservationStart, reservationEnd) {
+      if (
+        (reservationStart >= timeStart && reservationStart < timeEnd) ||
+        (reservationEnd > timeStart && reservationEnd <= timeEnd)
+      ) {
+        return false;
+      } else return true;
+    }
+
+    if (includingReservation.length !== 0) {
+      includingReservation.forEach((el) => {
+        el.hours = el.hours.split("-");
+        if (!checkInterval(el.hours[0], el.hours.slice(-1))) {
+          if (finaleMasters.indexOf(el.master_id) !== -1) {
+            finaleMasters.splice(finaleMasters.indexOf(el.master_id), 1);
+          }
+        }
+      });
+    }
+  }
 
   return (
     <div

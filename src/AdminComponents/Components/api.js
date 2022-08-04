@@ -20,4 +20,16 @@ Api.delete = async function (url, id) {
   });
 };
 
+Api.getAvailable = async function (url, id) {
+  const response = await fetch(
+    `https://heroku-server-intership.herokuapp.com/api/${url}/${id}`,
+    {
+      method: "GET",
+    }
+  );
+  return await response.json().then((answer) => {
+    return answer;
+  });
+};
+
 export default Api;
