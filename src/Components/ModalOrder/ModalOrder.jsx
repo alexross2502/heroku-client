@@ -8,6 +8,7 @@ import Api from "../../AdminComponents/Components/api";
 import { FormButton } from "../../AdminComponents/Components/FormButton";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { setModalMasters } from "../../redux/modalMastersReducer";
 
 const ModalOrder = () => {
   const dispatch = useDispatch();
@@ -86,10 +87,10 @@ const ModalOrder = () => {
     let includingMasters = await Api.getAvailable("masters", data.town);
 
     let finaleMasters = [];
+
     includingMasters.forEach((el) => {
       finaleMasters.push(el.id);
     });
-
     let timeStart = date.time[0];
     let timeEnd = date.time[1];
     function checkInterval(reservationStart, reservationEnd) {
@@ -111,6 +112,9 @@ const ModalOrder = () => {
         }
       });
     }
+    dispatch(setModalOrder());
+    dispatch({ type: "setAvailableMasters", payload: [...finaleMasters] });
+    dispatch(setModalMasters());
   }
 
   return (

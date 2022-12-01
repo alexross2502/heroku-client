@@ -7,6 +7,7 @@ import thunk from "redux-thunk";
 import rerenderReducer from "./rerenderReducer";
 import orderReducer from "./orderReducer";
 import modalMastersReducer from "./modalMastersReducer";
+import { availableMastersReducer } from "./availableMastersReducer";
 
 const rootReducer = combineReducers({
   modalWindow: modalWindowReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   rerender: rerenderReducer,
   order: orderReducer,
   modalMasters: modalMastersReducer,
+  availableMasters: availableMastersReducer,
 });
 
 export const store = createStore(

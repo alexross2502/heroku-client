@@ -57,5 +57,10 @@
     },
     "available": {
         "header" : "Выберите подходящего мастера"
+    },
+    "masterOrder": {
+        "name" : "Имя",
+        "surname" : "Фамилия",
+        "rating" : "Рейтинг"
     }
 }
