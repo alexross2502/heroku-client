@@ -2,7 +2,7 @@ const Api = {};
 
 Api.getAll = async function (url) {
   const response = await fetch(
-    `https://heroku-server-intership.herokuapp.com/api/${url}`
+    `https://mysqltest.herokuapp.com.com/api/${url}`
   );
   let answer = await response.json();
   return answer;
@@ -10,7 +10,7 @@ Api.getAll = async function (url) {
 
 Api.delete = async function (url, id) {
   const response = await fetch(
-    `https://heroku-server-intership.herokuapp.com/api/${url}/${id}`,
+    `https://mysqltest.herokuapp.com.com/api/${url}/${id}`,
     {
       method: "DELETE",
     }
@@ -22,7 +22,7 @@ Api.delete = async function (url, id) {
 
 Api.getAvailable = async function (url, id) {
   const response = await fetch(
-    `https://heroku-server-intership.herokuapp.com/api/${url}/${id}`,
+    `https://mysqltest.herokuapp.com.com/api/${url}/${id}`,
     {
       method: "GET",
     }
