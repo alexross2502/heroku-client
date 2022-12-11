@@ -38,7 +38,7 @@ const TownsPage = () => {
       <div className={style.rightSide}>
         <p className={style.header}>{t("townsPage.header")}</p>
         <form className={style.addContainer}>
-          <p className={style.subtitle}>{t("adminPage.addClient")}</p>
+          <p className={style.subtitle}>{t("adminPage.addTown")}</p>
           <div className={style.inputContainer}>
             <input
               className={style.inputText}

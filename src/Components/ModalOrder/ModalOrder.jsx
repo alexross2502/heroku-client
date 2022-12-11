@@ -9,6 +9,8 @@ import { FormButton } from "../../AdminComponents/Components/FormButton";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { setModalMasters } from "../../redux/modalMastersReducer";
+import setHours from "date-fns/setHours";
+import setMinutes from "date-fns/setMinutes";
 
 const ModalOrder = () => {
   const dispatch = useDispatch();
@@ -179,6 +181,7 @@ const ModalOrder = () => {
             <p>{t("order.date")}</p>
             <DatePicker
               className={style.select}
+              required={true}
               selected={selectedDate}
               dateFormat="dd/MM/yyyy"
               minDate={new Date()}
@@ -188,9 +191,12 @@ const ModalOrder = () => {
             <p>{t("order.time")}</p>
             <DatePicker
               className={style.select}
+              required={true}
               selected={selectedTime}
               showTimeSelect
               showTimeSelectOnly
+              minTime={setHours(setMinutes(new Date(), 0), 7)}
+              maxTime={setHours(setMinutes(new Date(), 0), 19)}
               timeIntervals={60}
               dateFormat="h:mm"
               onChange={(time) => setSelectedTime(time)}

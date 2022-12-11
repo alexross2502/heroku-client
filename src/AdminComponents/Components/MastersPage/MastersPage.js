@@ -48,7 +48,7 @@ const MastersPage = () => {
       <div className={style.rightSide}>
         <p className={style.header}>{t("mastersPage.header")}</p>
         <form className={style.addContainer}>
-          <p className={style.subtitle}>{t("adminPage.addClient")}</p>
+          <p className={style.subtitle}>{t("adminPage.addMaster")}</p>
           <div className={style.inputContainer}>
             <input
               className={style.inputText}

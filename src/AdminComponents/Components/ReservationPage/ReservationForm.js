@@ -12,7 +12,6 @@ export function ReservationForm(props) {
       +props.data.hours.split("-")[props.data.hours.split("-").length - 1] + 1
     }:00`;
   }
-
   return (
     <form>
       <div className={style.inputContainer}>

@@ -99,6 +99,14 @@
   box-shadow: 8px 4px 5px #013713;
 }
 
+.dateContainer {
+  display: inline-block;
+  position: relative;
+  margin: 15px;
+  width: 180px;
+  height: 25px;
+}
+
 /* saveButton */
 
 .saveButton {
