@@ -117,6 +117,22 @@ const ModalOrder = () => {
     dispatch(setModalOrder());
     dispatch({ type: "setAvailableMasters", payload: [...finaleMasters] });
     dispatch(setModalMasters());
+    //Добавление информации о клиенте и заказе для дальнейшего отправления письма
+    let hours;
+    if (date.time[1] - date.time[0] == 1) {
+      hours = String(date.time[0]);
+    } else if (date.time[1] - date.time[0] == 2) {
+      hours = `${date.time[0]}-${+date.time[0] + 1}`;
+    } else if (date.time[1] - date.time[0] == 3) {
+      hours = `${date.time[0]}-${+date.time[0] + 1}-${+date.time[0] + 2}`;
+    }
+    let finaleData = [data.name, data.email, data.town, date.date, hours];
+    dispatch({
+      type: "setOrderData",
+      payload: [...finaleData],
+    });
+
+    ////////////////////////////////////////////////////////////////////////////
   }
 
   return (
