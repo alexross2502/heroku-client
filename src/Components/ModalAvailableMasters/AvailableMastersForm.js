@@ -2,9 +2,12 @@ import React from "react";
 import style from "./ModalAvailableMasters.module.css";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useSelector, useDispatch } from "react-redux";
+import { sendMail } from "./sendMail";
 
 export function AvailableMastersForm(props) {
   const { t } = useTranslation();
+  const userData = useSelector((state) => state.orderData.data);
   const {
     register,
     formState: { errors },
@@ -14,7 +17,12 @@ export function AvailableMastersForm(props) {
 
   return (
     <form>
-      <div className={style.modal_item}>
+      <div
+        className={style.modal_item}
+        onClick={() => {
+          sendMail(props.data, userData);
+        }}
+      >
         <span>
           {t("masterOrder.name")} : {props.data.name}
         </span>

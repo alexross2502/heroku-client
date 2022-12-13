@@ -25,7 +25,7 @@ const ModalAvailableMasters = () => {
     });
 
     setMastersList(temporary);
-  });
+  }, [mastersIndex]);
   //Открытие\закрытие модального окна
   const isActive = useSelector((state) => state.modalMasters.isActive);
   const windowClose = () => {

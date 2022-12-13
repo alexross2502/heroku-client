@@ -116,6 +116,7 @@ const ModalOrder = () => {
     }
     dispatch(setModalOrder());
     dispatch({ type: "setAvailableMasters", payload: [...finaleMasters] });
+    console.log(finaleMasters);
     dispatch(setModalMasters());
     //Добавление информации о клиенте и заказе для дальнейшего отправления письма
     let hours;
