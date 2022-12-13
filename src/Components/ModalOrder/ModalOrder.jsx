@@ -82,6 +82,7 @@ const ModalOrder = () => {
       "reservation",
       townsList[townsList.findIndex((el) => el.name == data.town)].id
     );
+
     let includingReservation = includingTowns.filter(
       (el) => el.day == date.date
     );
@@ -127,7 +128,12 @@ const ModalOrder = () => {
     } else if (date.time[1] - date.time[0] == 3) {
       hours = `${date.time[0]}-${+date.time[0] + 1}-${+date.time[0] + 2}`;
     }
+
     let finaleData = [data.name, data.email, data.town, date.date, hours];
+    townsList.forEach((el) => {
+      if (el.name == data.town) finaleData.push(String(el.id));
+    });
+
     dispatch({
       type: "setOrderData",
       payload: [...finaleData],
