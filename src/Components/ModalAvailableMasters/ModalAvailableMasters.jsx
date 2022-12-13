@@ -13,9 +13,9 @@ const ModalAvailableMasters = () => {
   let masters = [];
   let arrayOfIndices = [];
   const mastersIndex = useSelector((state) => state.availableMasters.masters);
-  useEffect(async () => {
+  useEffect(() => {
+    let asyncFunc = async () => {
     masters = [...(await Api.getAll("masters"))];
-
     masters.forEach((item) => {
       arrayOfIndices.push(item.id);
     });
@@ -25,6 +25,8 @@ const ModalAvailableMasters = () => {
     });
 
     setMastersList(temporary);
+  }
+  asyncFunc()
   }, [mastersIndex]);
   //Открытие\закрытие модального окна
   const isActive = useSelector((state) => state.modalMasters.isActive);

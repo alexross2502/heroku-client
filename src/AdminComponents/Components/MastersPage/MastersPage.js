@@ -17,11 +17,14 @@ const MastersPage = () => {
   const [mastersList, setMastersList] = useState([]);
   const [townsList, setTownsList] = useState([]);
 
-  useEffect(async () => {
+  useEffect(() => {
+    let asyncFunc = async () => {
     let clients = [...(await Api.getAll("masters"))];
     setMastersList(clients);
     let towns = [...(await Api.getAll("towns"))];
     setTownsList(towns);
+    }
+    asyncFunc()
   }, [rerender]);
 
   const { handleSubmit, register } = useForm({

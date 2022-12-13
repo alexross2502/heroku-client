@@ -16,9 +16,12 @@ const TownsPage = () => {
   const rerender = useSelector((state) => state.rerender.isRerender);
   const [townsList, setTownsList] = useState([]);
 
-  useEffect(async () => {
+  useEffect(() => {
+    let asyncFunc = async () => {
     let towns = [...(await Api.getAll("towns"))];
     setTownsList(towns);
+    }
+    asyncFunc()
   }, [rerender]);
 
   const { handleSubmit, register } = useForm({

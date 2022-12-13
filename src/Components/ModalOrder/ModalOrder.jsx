@@ -32,9 +32,12 @@ const ModalOrder = () => {
   }
 
   const [townsList, setTownsList] = useState([]);
-  useEffect(async () => {
+  useEffect(() => {
+    let asyncFunc = async () => {
     let towns = [...(await Api.getAll("towns"))];
     setTownsList(towns);
+    }
+    asyncFunc()
   }, []);
   const townListItem = townsList.map((item) => {
     return (

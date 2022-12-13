@@ -16,9 +16,12 @@ const ClientPage = () => {
   const rerender = useSelector((state) => state.rerender.isRerender);
   const [clientsList, setClientsList] = useState([]);
 
-  useEffect(async () => {
-    let clients = [...(await Api.getAll("clients"))];
-    setClientsList(clients);
+  useEffect(() => {
+    let asyncFunc = async () => {
+      let clients = [...(await Api.getAll("clients"))];
+      setClientsList(clients);
+    }
+    asyncFunc()
   }, [rerender]);
 
   const { handleSubmit, register } = useForm({

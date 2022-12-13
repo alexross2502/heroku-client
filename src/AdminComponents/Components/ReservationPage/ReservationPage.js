@@ -25,13 +25,16 @@ const ReservationPage = () => {
   const [selectedTime, setSelectedTime] = useState(null);
   
 
-  useEffect(async () => {
+  useEffect(() => {
+    let asyncFunc = async () => {
     let reservation = [...(await Api.getAll("reservation"))];
     setReservationList(reservation);
     let masters = [...(await Api.getAll("masters"))];
     setMastersList(masters);
     let towns = [...(await Api.getAll("towns"))];
     setTownsList(towns);
+    }
+    asyncFunc()
   }, [rerender]);
 
   const { handleSubmit, register } = useForm({

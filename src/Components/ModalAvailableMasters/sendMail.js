@@ -1,6 +1,7 @@
 import { nanoid } from "nanoid";
 import Api from "../../AdminComponents/Components/api";
 
+
 export async function sendMail(masterData, orderData) {
   let hashKey = nanoid(20);
 
@@ -30,4 +31,7 @@ export async function sendMail(masterData, orderData) {
 
   //Проверка и добавление нового клиента, если не существует
   Api.checkClient(orderData[0][0], orderData[0][1]);
+
+
+ 
 }
