@@ -36,6 +36,9 @@ const ClientPage = () => {
     return <ClientForm data={item} key={item.id} />;
   });
 
+ 
+
+
   return (
     <div className={style.container} onSubmit={handleSubmit(newClient)}>
       <LeftSideMenu />

@@ -47,7 +47,9 @@ const TownsPage = () => {
               className={style.inputText}
               type="text"
               placeholder="Название"
-              {...register("name")}
+              {...register("name", {
+                required: `${t("adminPopup.emptyField")}`,
+              })}
             ></input>
           </div>
           <FormButton buttonType="saveButton" />

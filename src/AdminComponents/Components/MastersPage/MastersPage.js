@@ -57,7 +57,9 @@ const MastersPage = () => {
               className={style.inputText}
               type="text"
               placeholder="Имя"
-              {...register("name")}
+              {...register("name", {
+                required: `${t("adminPopup.emptyField")}`,
+              })}
             ></input>
           </div>
           <div className={style.inputContainer}>
@@ -65,7 +67,9 @@ const MastersPage = () => {
               className={style.inputText}
               type="text"
               placeholder="Фамилия"
-              {...register("surname")}
+              {...register("surname", {
+                required: `${t("adminPopup.emptyField")}`,
+              })}
             ></input>
           </div>
           <select {...register("rating")} className={style.select}>
