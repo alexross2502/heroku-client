@@ -167,8 +167,23 @@ const ModalOrder = () => {
               className={style.modal_input}
               {...register("name", {
                 required: `${t("adminPopup.emptyField")}`,
+                minLength: {
+                  value: 3,
+                  message: `${t("adminPopup.min")}`,
+                },
+                maxLength: {
+                  value: 15,
+                  message: `${t("adminPopup.max")}`,
+                },
+                pattern: {
+                  value: /^[а-яА-я]+$/,
+                  message: `${t("adminPopup.onlyCyrillic")}`,
+                },
               })}
             ></input>
+            {errors?.name && (
+              <p style={{ color: "red" }}>{errors.name.message}</p>
+            )}
             <p>{t("order.email")}</p>
             <input
               name="email"
@@ -182,6 +197,9 @@ const ModalOrder = () => {
                 },
               })}
             ></input>
+            {errors?.email && (
+              <p style={{ color: "red" }}>{errors.email.message}</p>
+            )}
             <p>{t("order.repearType")}</p>
             <select {...register("size")} className={style.select}>
               <option selected value="1">
@@ -236,3 +254,8 @@ const ModalOrder = () => {
 };
 
 export default ModalOrder;
+/*
+{errors?.name && (
+              <p style={{ color: "red" }}>{errors.name.message}</p>
+            )}
+*/
