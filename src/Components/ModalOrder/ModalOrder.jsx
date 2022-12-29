@@ -39,6 +39,7 @@ const ModalOrder = () => {
     };
     asyncFunc();
   }, []);
+
   const townListItem = townsList.map((item) => {
     return (
       <option value={item.name} key={item.id}>
@@ -135,6 +136,7 @@ const ModalOrder = () => {
     townsList.forEach((el) => {
       if (el.name == data.town) finaleData.push(String(el.id));
     });
+    finaleData.push(date.time);
 
     dispatch({
       type: "setOrderData",
