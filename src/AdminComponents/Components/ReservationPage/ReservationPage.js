@@ -23,23 +23,26 @@ const ReservationPage = () => {
   const [townsList, setTownsList] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
-  
 
   useEffect(() => {
     let asyncFunc = async () => {
-    let reservation = [...(await Api.getAll("reservation"))];
-    setReservationList(reservation);
-    let masters = [...(await Api.getAll("masters"))];
-    setMastersList(masters);
-    let towns = [...(await Api.getAll("towns"))];
-    setTownsList(towns);
-    }
-    asyncFunc()
+      let reservation = [...(await Api.getAll("reservation"))];
+      setReservationList(reservation);
+      let masters = [...(await Api.getAll("masters"))];
+      setMastersList(masters);
+      let towns = [...(await Api.getAll("towns"))];
+      setTownsList(towns);
+    };
+    asyncFunc();
   }, [rerender]);
 
   const { handleSubmit, register } = useForm({
     mode: "onBlur",
   });
+
+  let today = new Date();
+  let now = today.getUTCHours() + 3;
+
   let monthNumber = [
     "",
     "Jan",
@@ -71,7 +74,6 @@ const ReservationPage = () => {
     return dateObj;
   };
   const townListItem = townsList.map((item) => {
-    
     return (
       <option value={item.id} key={item.id}>
         {item.name}
@@ -79,7 +81,7 @@ const ReservationPage = () => {
     );
   });
   const mastersListItem = mastersList.map((item) => {
-    let data = `${item.name} ${item.surname}`
+    let data = `${item.name} ${item.surname}`;
     return (
       <option value={item.id} key={item.id}>
         {data}
@@ -87,12 +89,11 @@ const ReservationPage = () => {
     );
   });
   const reservationListItem = reservationList.map((item) => {
-
-    return <ReservationForm data={item} key={item.id}/>;
+    return <ReservationForm data={item} key={item.id} />;
   });
+
   async function newReservation(data) {
-    
-    let date = dateParser(selectedDate, selectedTime, data.size)
+    let date = dateParser(selectedDate, selectedTime, data.size);
     await reservationSave(data.town, data.master, date);
     dispatch(setPageRerender());
   }
@@ -104,9 +105,8 @@ const ReservationPage = () => {
         <form className={style.addContainer}>
           <p className={style.subtitle}>{t("adminPage.addReservation")}</p>
           <div className={style.dateContainer}>
-          
             <DatePicker
-            placeholderText={'Выберите дату'}
+              placeholderText={"Выберите дату"}
               className={style.select}
               required={true}
               selected={selectedDate}
@@ -115,40 +115,41 @@ const ReservationPage = () => {
               filterDate={(date) => date.getDay() != 6 && date.getDay() != 0}
               onChange={(date) => setSelectedDate(date)}
             />
-            </div>
-            <div className={style.dateContainer}>
-           
+          </div>
+          <div className={style.dateContainer}>
             <DatePicker
-            placeholderText={'Выберите время'}
+              placeholderText={"Выберите время"}
               className={style.select}
               required={true}
               selected={selectedTime}
               showTimeSelect
               showTimeSelectOnly
               timeIntervals={60}
-              minTime={setHours(setMinutes(new Date(), 0), 7)}
+              minTime={setHours(setMinutes(new Date(), 0), now < 9 ? 9 : now)}
               maxTime={setHours(setMinutes(new Date(), 0), 19)}
               dateFormat="h:mm"
               onChange={(time) => setSelectedTime(time)}
             />
-            </div>
-            <select {...register("size", {
+          </div>
+          <select
+            {...register("size", {
               required: `${t("adminPopup.emptyField")}`,
-            })} className={style.select}>
+            })}
+            className={style.select}
+          >
             <option disabled selected value="">
               Выберите размер часов
             </option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
           <select
             {...register("town", {
               required: `${t("adminPopup.emptyField")}`,
             })}
             className={style.select}
             required
-           
           >
             <option disabled selected value="">
               Выберите город
@@ -161,17 +162,13 @@ const ReservationPage = () => {
             })}
             className={style.select}
             required
-           
           >
-            <option 
-            disabled selected value=""
-          
-            >
+            <option disabled selected value="">
               Выберите мастера
             </option>
             {mastersListItem}
           </select>
-          
+
           <FormButton buttonType="saveButton" />
         </form>
         <div>
@@ -185,4 +182,3 @@ const ReservationPage = () => {
 };
 
 export default ReservationPage;
-

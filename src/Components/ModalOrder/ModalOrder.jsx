@@ -79,6 +79,9 @@ const ModalOrder = () => {
     return dateObj;
   };
 
+  let today = new Date();
+  let now = today.getUTCHours() + 3;
+
   async function formSend(data) {
     let date = dateParser(selectedDate, selectedTime, data.size);
     let town = townsList[townsList.findIndex((el) => el.name == data.town)].id;
@@ -205,7 +208,7 @@ const ModalOrder = () => {
               selected={selectedTime}
               showTimeSelect
               showTimeSelectOnly
-              minTime={setHours(setMinutes(new Date(), 0), 7)}
+              minTime={setHours(setMinutes(new Date(), 0), now < 9 ? 9 : now)}
               maxTime={setHours(setMinutes(new Date(), 0), 19)}
               timeIntervals={60}
               dateFormat="h:mm"
