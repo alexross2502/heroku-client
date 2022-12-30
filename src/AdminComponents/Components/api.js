@@ -72,4 +72,25 @@ Api.checkClient = async function clientCheck(name, email) {
   });
 };
 
+Api.mastersCheck = async function checkMasters(date, town, townName) {
+  let data = {};
+  data.date = date;
+  data.town = town;
+  data.townName = townName;
+
+  const response = await fetch(
+    "https://mysqltest.herokuapp.com/api/reservation/available",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  );
+  return await response.json().then((answer) => {
+    return answer;
+  });
+};
+
 export default Api;

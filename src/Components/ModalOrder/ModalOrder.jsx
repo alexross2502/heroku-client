@@ -81,47 +81,12 @@ const ModalOrder = () => {
 
   async function formSend(data) {
     let date = dateParser(selectedDate, selectedTime, data.size);
-
-    let includingTowns = await Api.getAvailable(
-      "reservation",
-      townsList[townsList.findIndex((el) => el.name == data.town)].id
-    );
-
-    let includingReservation = includingTowns.filter(
-      (el) => el.day == date.date
-    );
-
-    let includingMasters = await Api.getAvailable("masters", data.town);
-
-    let finaleMasters = [];
-
-    includingMasters.forEach((el) => {
-      finaleMasters.push(el.id);
-    });
-    let timeStart = date.time[0];
-    let timeEnd = date.time[1];
-    function checkInterval(reservationStart, reservationEnd) {
-      if (
-        (reservationStart >= timeStart && reservationStart < timeEnd) ||
-        (reservationEnd > timeStart && reservationEnd <= timeEnd)
-      ) {
-        return false;
-      } else return true;
-    }
-
-    if (includingReservation.length !== 0) {
-      includingReservation.forEach((el) => {
-        el.hours = el.hours.split("-");
-        if (!checkInterval(el.hours[0], el.hours.slice(-1))) {
-          if (finaleMasters.indexOf(el.master_id) !== -1) {
-            finaleMasters.splice(finaleMasters.indexOf(el.master_id), 1);
-          }
-        }
-      });
-    }
+    let town = townsList[townsList.findIndex((el) => el.name == data.town)].id;
+    let finaleMasters = await Api.mastersCheck(date, town, data.town);
     dispatch(setModalOrder());
     dispatch({ type: "setAvailableMasters", payload: [...finaleMasters] });
     dispatch(setModalMasters());
+
     //Добавление информации о клиенте и заказе для дальнейшего отправления письма
     let hours;
     if (date.time[1] - date.time[0] == 1) {
@@ -256,8 +221,3 @@ const ModalOrder = () => {
 };
 
 export default ModalOrder;
-/*
-{errors?.name && (
-              <p style={{ color: "red" }}>{errors.name.message}</p>
-            )}
-*/
