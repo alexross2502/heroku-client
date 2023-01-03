@@ -42,6 +42,12 @@ const ReservationPage = () => {
 
   let today = new Date();
   let now = today.getUTCHours() + 3;
+  //Проверяем не выбран ли сегодняшний день
+  function dayChecker() {
+    if (String(selectedDate).slice(0, 15) == String(today).slice(0, 15))
+      return now < 9 ? 9 : now;
+    else return 9;
+  }
 
   let monthNumber = [
     "",
@@ -113,7 +119,10 @@ const ReservationPage = () => {
               dateFormat="dd/MM/yyyy"
               minDate={new Date()}
               filterDate={(date) => date.getDay() != 6 && date.getDay() != 0}
-              onChange={(date) => setSelectedDate(date)}
+              onChange={(date) => {
+                setSelectedDate(date);
+                setSelectedTime(null);
+              }}
             />
           </div>
           <div className={style.dateContainer}>
@@ -125,7 +134,7 @@ const ReservationPage = () => {
               showTimeSelect
               showTimeSelectOnly
               timeIntervals={60}
-              minTime={setHours(setMinutes(new Date(), 0), now < 9 ? 9 : now)}
+              minTime={setHours(setMinutes(new Date(), 0), dayChecker())}
               maxTime={setHours(setMinutes(new Date(), 0), 19)}
               dateFormat="h:mm"
               onChange={(time) => setSelectedTime(time)}
