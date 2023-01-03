@@ -171,10 +171,12 @@ const ModalOrder = () => {
               <p style={{ color: "red" }}>{errors.email.message}</p>
             )}
             <p>{t("order.repearType")}</p>
-            <select {...register("size")} className={style.select}>
-              <option selected value="1">
-                1
-              </option>
+            <select
+              {...register("size")}
+              className={style.select}
+              defaultValue={"1"}
+            >
+              <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
             </select>
@@ -185,8 +187,9 @@ const ModalOrder = () => {
               })}
               className={style.select}
               required
+              defaultValue={"DEFAULT"}
             >
-              <option disabled selected value="">
+              <option disabled value="DEFAULT">
                 Выберите город
               </option>
               {townListItem}
