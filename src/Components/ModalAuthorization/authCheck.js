@@ -2,7 +2,8 @@ export async function authCheck(formData) {
   let data = {};
   data.password = formData.password;
   data.login = formData.email;
-  const response = await fetch("https://mysqltest.herokuapp.com/api/admin", {
+  //const response = await fetch("https://mysqltest.herokuapp.com/api/admin", {
+  const response = await fetch("http://localhost:3306/api/admin", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -10,6 +11,7 @@ export async function authCheck(formData) {
     body: JSON.stringify(data),
   });
   return await response.json().then((answer) => {
+    console.log(answer);
     return answer;
   });
 }

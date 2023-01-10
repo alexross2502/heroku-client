@@ -1,7 +1,14 @@
 const Api = {};
 
 Api.getAll = async function (url) {
-  const response = await fetch(`https://mysqltest.herokuapp.com/api/${url}`);
+  //const response = await fetch(`https://mysqltest.herokuapp.com/api/${url}`);
+  const response = await fetch(`http://localhost:3306/api/${url}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization':"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNjczMzY5MjY0LCJleHAiOjE2NzMzNzI4NjR9.2mwYIlnZCoZTL7Mo3NjkY-rwm8R1EOhV6npP85vwT8s",
+    },
+  });
   let answer = await response.json();
   return answer;
 };
