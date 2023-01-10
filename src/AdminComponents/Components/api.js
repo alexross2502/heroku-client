@@ -1,12 +1,14 @@
+import { getToken } from "../token";
+
 const Api = {};
 
 Api.getAll = async function (url) {
-  //const response = await fetch(`https://mysqltest.herokuapp.com/api/${url}`);
-  const response = await fetch(`http://localhost:3306/api/${url}`, {
+  const token = getToken()
+  const response = await fetch(`https://mysqltest.herokuapp.com/api/${url}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization':"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNjczMzY5MjY0LCJleHAiOjE2NzMzNzI4NjR9.2mwYIlnZCoZTL7Mo3NjkY-rwm8R1EOhV6npP85vwT8s",
+      'Authorization':`${token}`,
     },
   });
   let answer = await response.json();
@@ -14,10 +16,15 @@ Api.getAll = async function (url) {
 };
 
 Api.delete = async function (url, id) {
+  const token = getToken()
   const response = await fetch(
     `https://mysqltest.herokuapp.com/api/${url}/${id}`,
     {
       method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization':`${token}`,
+      },
     }
   );
   return await response.json().then((answer) => {
@@ -26,10 +33,15 @@ Api.delete = async function (url, id) {
 };
 
 Api.getAvailable = async function (url, id) {
+  const token = getToken()
   const response = await fetch(
     `https://mysqltest.herokuapp.com/api/${url}/${id}`,
     {
       method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization':`${token}`,
+      },
     }
   );
   return await response.json().then((answer) => {
@@ -63,13 +75,14 @@ Api.checkClient = async function clientCheck(name, email) {
   let data = {};
   data.name = name;
   data.email = email;
-
+  const token = getToken()
   const response = await fetch(
     "https://mysqltest.herokuapp.com/api/clients/check",
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'Authorization':`${token}`,
       },
       body: JSON.stringify(data),
     }
@@ -84,13 +97,14 @@ Api.mastersCheck = async function checkMasters(date, town, townName) {
   data.date = date;
   data.town = town;
   data.townName = townName;
-
+  const token = getToken()
   const response = await fetch(
     "https://mysqltest.herokuapp.com/api/reservation/available",
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'Authorization':`${token}`,
       },
       body: JSON.stringify(data),
     }
