@@ -81,6 +81,12 @@ const ModalOrder = () => {
 
   let today = new Date();
   let now = today.getUTCHours() + 3;
+  //Проверяем не выбран ли сегодняшний день
+  function dayChecker() {
+    if (String(selectedDate).slice(0, 15) == String(today).slice(0, 15))
+      return now < 9 ? 9 : now;
+    else return 9;
+  }
 
   async function formSend(data) {
     let date = dateParser(selectedDate, selectedTime, data.size);
@@ -171,10 +177,12 @@ const ModalOrder = () => {
               <p style={{ color: "red" }}>{errors.email.message}</p>
             )}
             <p>{t("order.repearType")}</p>
-            <select {...register("size")} className={style.select}>
-              <option selected value="1">
-                1
-              </option>
+            <select
+              {...register("size")}
+              className={style.select}
+              defaultValue={"1"}
+            >
+              <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
             </select>
@@ -185,8 +193,9 @@ const ModalOrder = () => {
               })}
               className={style.select}
               required
+              defaultValue={"DEFAULT"}
             >
-              <option disabled selected value="">
+              <option disabled value="DEFAULT">
                 Выберите город
               </option>
               {townListItem}
@@ -199,7 +208,10 @@ const ModalOrder = () => {
               dateFormat="dd/MM/yyyy"
               minDate={new Date()}
               filterDate={(date) => date.getDay() != 6 && date.getDay() != 0}
-              onChange={(date) => setSelectedDate(date)}
+              onChange={(date) => {
+                setSelectedDate(date);
+                setSelectedTime(null);
+              }}
             />
             <p>{t("order.time")}</p>
             <DatePicker
@@ -208,7 +220,7 @@ const ModalOrder = () => {
               selected={selectedTime}
               showTimeSelect
               showTimeSelectOnly
-              minTime={setHours(setMinutes(new Date(), 0), now < 9 ? 9 : now)}
+              minTime={setHours(setMinutes(new Date(), 0), dayChecker())}
               maxTime={setHours(setMinutes(new Date(), 0), 19)}
               timeIntervals={60}
               dateFormat="h:mm"

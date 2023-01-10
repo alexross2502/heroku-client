@@ -10,6 +10,7 @@ export async function authCheck(formData) {
     body: JSON.stringify(data),
   });
   return await response.json().then((answer) => {
+    localStorage.setItem('token', answer.token)
     return answer;
   });
 }

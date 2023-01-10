@@ -97,3 +97,21 @@ span {
   margin-right: -10px;
   font-weight: bold;
 }
+
+.modal_popup {
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 150px;
+  background-color: rgb(131, 129, 129);
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0);
+  margin: -75px 0 0 -150px;
+}
+
+.modal_popup.active {
+  transform: scale(1);
+}

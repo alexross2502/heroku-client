@@ -9,6 +9,7 @@ import orderReducer from "./orderReducer";
 import modalMastersReducer from "./modalMastersReducer";
 import { availableMastersReducer } from "./availableMastersReducer";
 import { orderDataReducer } from "./orderDataReducer";
+import orderSuccessReducer from "./orderSuccessReducer";
 
 const rootReducer = combineReducers({
   modalWindow: modalWindowReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   modalMasters: modalMastersReducer,
   availableMasters: availableMastersReducer,
   orderData: orderDataReducer,
+  orderSuccess: orderSuccessReducer,
 });
 
 export const store = createStore(

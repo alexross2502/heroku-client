@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { sendMail } from "./sendMail";
 import { setModalMasters } from "../../redux/modalMastersReducer";
+import { setOrderSuccessReducer } from "../../redux/orderSuccessReducer";
 
 export function AvailableMastersForm(props) {
   const { t } = useTranslation();
@@ -24,6 +25,7 @@ export function AvailableMastersForm(props) {
         onClick={() => {
           sendMail(props.data, userData);
           dispatch(setModalMasters());
+          dispatch(setOrderSuccessReducer());
         }}
       >
         <span>

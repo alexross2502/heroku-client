@@ -30,6 +30,7 @@ const ModalAvailableMasters = () => {
   }, [mastersIndex]);
   //Открытие\закрытие модального окна
   const isActive = useSelector((state) => state.modalMasters.isActive);
+
   const windowClose = () => {
     dispatch(setModalMasters());
   };
