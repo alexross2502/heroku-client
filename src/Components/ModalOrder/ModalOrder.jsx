@@ -91,9 +91,9 @@ const ModalOrder = () => {
   async function formSend(data) {
     let date = dateParser(selectedDate, selectedTime, data.size);
     let town = townsList[townsList.findIndex((el) => el.name == data.town)].id;
-    let finaleMasters = await Api.mastersCheck(date, town, data.town);
+    let orderData = [date, town, data.town]
     dispatch(setModalOrder());
-    dispatch({ type: "setAvailableMasters", payload: [...finaleMasters] });
+    dispatch({ type: "setAvailableMasters", payload: [...orderData] });
     dispatch(setModalMasters());
 
     //Добавление информации о клиенте и заказе для дальнейшего отправления письма

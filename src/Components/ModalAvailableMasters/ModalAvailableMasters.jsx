@@ -9,25 +9,17 @@ import { AvailableMastersForm } from "./AvailableMastersForm";
 const ModalAvailableMasters = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const [mastersList, setMastersList] = useState([]);
-  let masters = [];
-  let arrayOfIndices = [];
-  const mastersIndex = useSelector((state) => state.availableMasters.masters);
+  const [finaleMasters, setFinaleMasters] = useState([]);
+  const orderData = useSelector((state) => state.availableMasters.masters);
+
   useEffect(() => {
     let asyncFunc = async () => {
-      masters = [...(await Api.getAll("masters"))];
-      masters.forEach((item) => {
-        arrayOfIndices.push(item.id);
-      });
-      let temporary = [];
-      mastersIndex.flat().forEach((item) => {
-        temporary.push(masters[arrayOfIndices.indexOf(item)]);
-      });
-
-      setMastersList(temporary);
+      if(orderData.length != 0) {
+        setFinaleMasters(await Api.mastersCheck(orderData[0][0], orderData[0][1], orderData[0][2])) 
+      }
     };
     asyncFunc();
-  }, [mastersIndex]);
+  }, [orderData]);
   //Открытие\закрытие модального окна
   const isActive = useSelector((state) => state.modalMasters.isActive);
 
@@ -35,7 +27,7 @@ const ModalAvailableMasters = () => {
     dispatch(setModalMasters());
   };
   //
-  const masterListItem = mastersList.map((item) => {
+  const masterListItem = finaleMasters.map((item) => {
     return <AvailableMastersForm data={item} key={item.id} />;
   });
 
@@ -46,7 +38,7 @@ const ModalAvailableMasters = () => {
     >
       <div className={style.modal_content} onClick={(e) => e.stopPropagation()}>
         <div className={style.modal_container}>
-          {mastersList.length !== 0 ? (
+          {finaleMasters.length !== 0 ? (
             <h1 className={style.modal_h1}>{t("available.header")}</h1>
           ) : (
             <h1 className={style.modal_h1}>{t("available.emptyHeader")}</h1>
