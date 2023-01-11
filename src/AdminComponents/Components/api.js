@@ -97,14 +97,12 @@ Api.mastersCheck = async function checkMasters(date, town, townName) {
   data.date = date;
   data.town = town;
   data.townName = townName;
-  const token = getToken()
   const response = await fetch(
     "https://mysqltest.herokuapp.com/api/reservation/available",
     {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        'Authorization':`${token}`,
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(data),
     }
