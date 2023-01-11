@@ -133,7 +133,7 @@ Api.makeOrder = async function orderMake(town, master, date, recipient, name, su
   data.hours = hours;
 
   const response = await fetch(
-    "http://localhost:3306/api/reservation/order",
+    "https://mysqltest.herokuapp.com/api/reservation/order",
     {
       method: "POST",
       headers: {
