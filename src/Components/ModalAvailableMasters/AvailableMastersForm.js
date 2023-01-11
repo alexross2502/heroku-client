@@ -3,9 +3,10 @@ import style from "./ModalAvailableMasters.module.css";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
-import { sendMail } from "./sendMail";
 import { setModalMasters } from "../../redux/modalMastersReducer";
 import { setOrderSuccessReducer } from "../../redux/orderSuccessReducer";
+import { reservationSave } from "../../AdminComponents/Components/ReservationPage/reservationSave";
+import Api from "../../AdminComponents/Components/api";
 
 export function AvailableMastersForm(props) {
   const { t } = useTranslation();
@@ -23,7 +24,21 @@ export function AvailableMastersForm(props) {
       <div
         className={style.modal_item}
         onClick={() => {
-          sendMail(props.data, userData);
+          //sendMail(props.data, userData);
+          let date = {
+            date: userData[0][3],
+            time: userData[0][6],
+          };
+          Api.makeOrder(
+            userData[0][5], 
+            props.data.id, 
+            date,  
+            userData[0][1],
+            props.data.name,
+            props.data.surname,
+            props.data.rating
+          );
+          Api.checkClient(userData[0][0], userData[0][1]);
           dispatch(setModalMasters());
           dispatch(setOrderSuccessReducer());
         }}

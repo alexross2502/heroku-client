@@ -11,10 +11,12 @@ const ModalAvailableMasters = () => {
   const { t } = useTranslation();
   const [finaleMasters, setFinaleMasters] = useState([]);
   const orderData = useSelector((state) => state.availableMasters.masters);
-  
+
   useEffect(() => {
     let asyncFunc = async () => {
-      setFinaleMasters(await Api.mastersCheck(orderData[0][0], orderData[0][1], orderData[0][2])) 
+      if(orderData.length != 0) {
+        setFinaleMasters(await Api.mastersCheck(orderData[0][0], orderData[0][1], orderData[0][2])) 
+      }
     };
     asyncFunc();
   }, [orderData]);
