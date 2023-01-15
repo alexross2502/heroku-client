@@ -184,3 +184,14 @@
   color: #222;
   outline: none;
 }
+
+.logoutButton {
+  background-color: #c40404;
+  width: 139px;
+  border: 2px solid #c40404;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 20px;
+  text-align: center;
+  cursor: pointer;
+}
