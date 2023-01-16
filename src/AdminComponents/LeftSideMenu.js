@@ -2,7 +2,6 @@ import React from "react";
 import style from "./AdminPage.module.css";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { LogoutButton } from "./LogoutButton";
 
 export const LeftSideMenu = (props) => {
   const { t } = useTranslation();
@@ -26,7 +25,16 @@ export const LeftSideMenu = (props) => {
       >
         {t("adminPage.reservation")}
       </div>
-     <LogoutButton />
+      <div
+        className={style.logoutButton}
+        onClick={() => {
+          localStorage.removeItem('token');
+          navigate('/')}
+         }
+      >
+        {t("adminPage.logout")}
+      </div>
+     
     </div>
   );
 };
