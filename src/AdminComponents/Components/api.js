@@ -1,73 +1,24 @@
-import { getToken } from "../token";
+import { request } from "../axios-utils";
 
 const Api = {};
 
 Api.getAll = async function (url) {
-  const token = getToken()
-  const response = await fetch(`https://mysqltest.herokuapp.com/api/${url}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization':`${token}`,
-    },
-  });
-  let answer = await response.json();
-  return answer;
-};
+  return await request({url: `/${url}`})
+}
 
 Api.delete = async function (url, id) {
-  const token = getToken()
-  const response = await fetch(
-    `https://mysqltest.herokuapp.com/api/${url}/${id}`,
-    {
-      method: "DELETE",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization':`${token}`,
-      },
-    }
-  );
-  return await response.json().then((answer) => {
-    return answer;
-  });
+  return await request({url: `/${url}/${id}`, method: 'delete'})
 };
 
 Api.getAvailable = async function (url, id) {
-  const token = getToken()
-  const response = await fetch(
-    `https://mysqltest.herokuapp.com/api/${url}/${id}`,
-    {
-      method: "GET",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization':`${token}`,
-      },
-    }
-  );
-  return await response.json().then((answer) => {
-    return answer;
-  });
+  return await request({url: `/${url}/${id}`, method: 'get'})
 };
 
 Api.checkClient = async function clientCheck(name, email) {
   let data = {};
   data.name = name;
   data.email = email;
-  const token = getToken()
-  const response = await fetch(
-    "https://mysqltest.herokuapp.com/api/clients/check",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        'Authorization':`${token}`,
-      },
-      body: JSON.stringify(data),
-    }
-  );
-  return await response.json().then((answer) => {
-    return answer;
-  });
+  return await request({url: `/clients/check`, method: 'post', data: data})
 };
 
 Api.mastersCheck = async function checkMasters(date, town, townName) {
@@ -75,19 +26,7 @@ Api.mastersCheck = async function checkMasters(date, town, townName) {
   data.date = date;
   data.town = town;
   data.townName = townName;
-  const response = await fetch(
-    "https://mysqltest.herokuapp.com/api/reservation/available",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data),
-    }
-  );
-  return await response.json().then((answer) => {
-    return answer;
-  });
+  return await request({url: `/reservation/available`, method: 'post', data: data})
 };
 
 Api.makeOrder = async function orderMake(town, master, date, recipient, name, surname, rating) {
@@ -110,19 +49,8 @@ Api.makeOrder = async function orderMake(town, master, date, recipient, name, su
   }
   data.hours = hours;
 
-  const response = await fetch(
-    "https://mysqltest.herokuapp.com/api/reservation/order",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    }
-  );
-  return await response.json().then((answer) => {
-    return answer;
-  });
+  return await request({url: `/reservation/order`, method: 'post', data: data})
 };
+
 
 export default Api;

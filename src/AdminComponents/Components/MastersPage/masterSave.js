@@ -1,4 +1,4 @@
-import { getToken } from "../../token";
+import { request } from "../../axios-utils";
 
 export async function masterSave(name, surname, rating, town) {
   let data = {};
@@ -6,16 +6,5 @@ export async function masterSave(name, surname, rating, town) {
   data.surname = surname;
   data.rating = rating;
   data.townName = town;
-  const token = getToken()
-  const response = await fetch("https://mysqltest.herokuapp.com/api/masters", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      'Authorization':`${token}`,
-    },
-    body: JSON.stringify(data),
-  });
-  return await response.json().then((answer) => {
-    return answer;
-  });
+  return await request({url: `/masters`, method: 'post', data: data})
 }

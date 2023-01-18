@@ -28,7 +28,7 @@ export const LeftSideMenu = (props) => {
       <div
         className={style.logoutButton}
         onClick={() => {
-          localStorage.removeItem('token');
+          sessionStorage.removeItem('token');
           navigate('/')}
          }
       >
