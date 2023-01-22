@@ -3,11 +3,20 @@ import { getToken } from "./token";
 
 const client = axios.create({baseURL : 'https://mysqltest.herokuapp.com/api'})
 
+
 export const request = ({...option}) => {
+    
     client.defaults.headers.common.Authorization = getToken()
     const onSuccess = responce => responce.data
     const onError = error => {
-        //console.log(error.response.status)
+        if(error.response.status == 401) {
+            const response = axios.get('https://mysqltest.herokuapp.com/api/towns')
+            if(response.status === 200){
+                console.log('401')
+                return (error.config)
+            }
+           
+        }
         return error
     }
 

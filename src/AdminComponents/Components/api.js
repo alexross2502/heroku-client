@@ -14,13 +14,6 @@ Api.getAvailable = async function (url, id) {
   return await request({url: `/${url}/${id}`, method: 'get'})
 };
 
-Api.checkClient = async function clientCheck(name, email) {
-  let data = {};
-  data.name = name;
-  data.email = email;
-  return await request({url: `/clients/check`, method: 'post', data: data})
-};
-
 Api.mastersCheck = async function checkMasters(date, town, townName) {
   let data = {};
   data.date = date;
@@ -29,7 +22,7 @@ Api.mastersCheck = async function checkMasters(date, town, townName) {
   return await request({url: `/reservation/available`, method: 'post', data: data})
 };
 
-Api.makeOrder = async function orderMake(town, master, date, recipient, name, surname, rating) {
+Api.makeOrder = async function orderMake(town, master, date, recipient, name, surname, rating, clientName) {
   let data = {};
   data.recipient = recipient;
   data.name = name;
@@ -38,6 +31,7 @@ Api.makeOrder = async function orderMake(town, master, date, recipient, name, su
   data.towns_id = String(town);
   data.master_id = String(master);
   data.day = date.date;
+  data.clientName = clientName
 
   let hours;
   if (date.time[1] - date.time[0] == 1) {
