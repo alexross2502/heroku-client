@@ -38,8 +38,14 @@ export function AvailableMastersForm(props) {
             userData[0][0]
           );
           
+          
+          dispatch({
+            type: "setOrderData",
+            payload: ['', '', '', '', '', '', '', ''],
+          });
           dispatch(setModalMasters());
           dispatch(setOrderSuccessReducer());
+            
         }}
       >
         <span>
