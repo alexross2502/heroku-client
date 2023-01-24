@@ -11,6 +11,9 @@ export const request = ({...option}) => {
     const onSuccess = responce => responce.data
     const onError = error => {
         if(error.response.status == 401) {
+            document.location.href = '/'
+            sessionStorage.removeItem('token')
+            sessionStorage.removeItem('persist:main-root')
             const response = axios.get('https://mysqltest.herokuapp.com/api')
             if(response.status === 200){
                 console.log('401')
