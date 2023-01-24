@@ -12,6 +12,8 @@ const RequireAuth = ({ children }) => {
     return <Navigate to="/" state={{ from: location }} />;
   }
 
+
+  
   return children;
 };
 

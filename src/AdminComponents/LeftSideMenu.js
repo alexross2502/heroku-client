@@ -2,10 +2,13 @@ import React from "react";
 import style from "./AdminPage.module.css";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setAuthorized } from "../redux/authorizationReducer";
 
 export const LeftSideMenu = (props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <div className={style.leftSide}>
@@ -29,6 +32,8 @@ export const LeftSideMenu = (props) => {
         className={style.logoutButton}
         onClick={() => {
           sessionStorage.removeItem('token');
+          sessionStorage.removeItem('persist:main-root')
+          dispatch(setAuthorized('false'))
           navigate('/')}
          }
       >
