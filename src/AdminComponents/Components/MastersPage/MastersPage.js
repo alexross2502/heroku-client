@@ -21,7 +21,7 @@ const MastersPage = () => {
     let asyncFunc = async () => {
     let clients = [...(await Api.getAll("masters"))];
     setMastersList(clients);
-    let towns = [...(await Api.getAll("towns"))];
+    let towns = [...(await Api.getAllTowns("towns"))];
     setTownsList(towns);
     }
     asyncFunc()

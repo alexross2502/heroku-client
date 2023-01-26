@@ -13,16 +13,18 @@ import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
 
 const ModalOrder = () => {
+  const userData = useSelector((state) => state.orderData.data);
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const {
     handleSubmit,
     register,
     formState: { errors },
-    reset,
+    reset
   } = useForm({
     mode: "onBlur",
   });
+ 
   //Открытие\закрытие модального окна
   const isActive = useSelector((state) => state.order.isActive);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -36,9 +38,10 @@ const ModalOrder = () => {
     let asyncFunc = async () => {
       let towns = [...(await Api.getAll("towns"))];
       setTownsList(towns);
+      formReset()
     };
     asyncFunc();
-  }, []);
+  }, [isActive]);
 
   const townListItem = townsList.map((item) => {
     return (
@@ -111,6 +114,7 @@ const ModalOrder = () => {
       if (el.name == data.town) finaleData.push(String(el.id));
     });
     finaleData.push(date.time);
+    finaleData.push(data.size)
 
     dispatch({
       type: "setOrderData",
@@ -118,6 +122,30 @@ const ModalOrder = () => {
     });
 
     ////////////////////////////////////////////////////////////////////////////
+  }
+
+  //Очистка форм
+  function formReset () {
+    let hours, date ;
+    if(userData[0][3] == '' || userData[0][3] == undefined){
+      date = ''
+    }else{
+      date = userData[0][3]
+    }
+    if(userData[0][4] == '' || userData[0][4] == undefined){
+      hours = ''
+    }else{
+      hours = userData[0][4].split('-')[0]
+    }
+      reset({
+        name: userData[0][0], 
+        email: userData[0][1], 
+        size: userData[0][7], 
+        town: userData[0][2], 
+      }) 
+    
+      document.getElementById('time').value = hours
+      document.getElementById('date').value = date
   }
 
   return (
@@ -180,7 +208,6 @@ const ModalOrder = () => {
             <select
               {...register("size")}
               className={style.select}
-              defaultValue={"1"}
             >
               <option value="1">1</option>
               <option value="2">2</option>
@@ -193,7 +220,6 @@ const ModalOrder = () => {
               })}
               className={style.select}
               required
-              defaultValue={"DEFAULT"}
             >
               <option disabled value="DEFAULT">
                 Выберите город
@@ -202,6 +228,7 @@ const ModalOrder = () => {
             </select>
             <p>{t("order.date")}</p>
             <DatePicker
+              id="date"
               className={style.select}
               required={true}
               selected={selectedDate}
@@ -215,6 +242,8 @@ const ModalOrder = () => {
             />
             <p>{t("order.time")}</p>
             <DatePicker
+              id="time"
+              value={selectedTime}
               className={style.select}
               required={true}
               selected={selectedTime}

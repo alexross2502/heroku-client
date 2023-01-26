@@ -5,6 +5,7 @@ import { setModalMasters } from "../../redux/modalMastersReducer";
 import { useTranslation } from "react-i18next";
 import Api from "../../AdminComponents/Components/api";
 import { AvailableMastersForm } from "./AvailableMastersForm";
+import { setModalOrder } from "../../redux/orderReducer";
 
 const ModalAvailableMasters = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,16 @@ const ModalAvailableMasters = () => {
     >
       <div className={style.modal_content} onClick={(e) => e.stopPropagation()}>
         <div className={style.modal_container}>
+        <span className={style.backBtn}>
+        <img
+      src="https://cdn4.iconfinder.com/data/icons/essential-app-2/16/back-left-arrow-botton-256.png"
+      className={style.modal_img}
+      onClick={() => {
+        windowClose();
+        dispatch(setModalOrder());
+      }}
+      ></img>
+      </span>
           {finaleMasters.length !== 0 ? (
             <h1 className={style.modal_h1}>{t("available.header")}</h1>
           ) : (

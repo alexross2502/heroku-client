@@ -18,7 +18,7 @@ const TownsPage = () => {
 
   useEffect(() => {
     let asyncFunc = async () => {
-    let towns = [...(await Api.getAll("towns"))];
+    let towns = [...(await Api.getAllTowns("towns"))];
     setTownsList(towns);
     }
     asyncFunc()

@@ -1,4 +1,4 @@
-import { getToken } from "../../token";
+import { request } from "../../axios-utils";
 
 export async function reservationSave(town, master, date) {
   let data = {};
@@ -14,20 +14,6 @@ export async function reservationSave(town, master, date) {
     hours = `${date.time[0]}-${+date.time[0] + 1}-${+date.time[0] + 2}`;
   }
   data.hours = hours;
-  const token = getToken()
-
-  const response = await fetch(
-    "https://mysqltest.herokuapp.com/api/reservation",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        'Authorization':`${token}`,
-      },
-      body: JSON.stringify(data),
-    }
-  );
-  return await response.json().then((answer) => {
-    return answer;
-  });
+ 
+  return await request({url: `/reservation`, method: 'post', data: data})
 }

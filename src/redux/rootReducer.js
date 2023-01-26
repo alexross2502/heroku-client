@@ -10,6 +10,10 @@ import modalMastersReducer from "./modalMastersReducer";
 import { availableMastersReducer } from "./availableMastersReducer";
 import { orderDataReducer } from "./orderDataReducer";
 import orderSuccessReducer from "./orderSuccessReducer";
+import { PersistConfig, persistReducer } from "redux-persist";
+import sessionStorage from "redux-persist/es/storage/session";
+
+import persistStore from "redux-persist/es/persistStore";
 
 const rootReducer = combineReducers({
   modalWindow: modalWindowReducer,
@@ -22,7 +26,17 @@ const rootReducer = combineReducers({
   orderSuccess: orderSuccessReducer,
 });
 
+const persistConfig = {
+  key: 'main-root',
+  storage: sessionStorage,
+  whitelist: ['authorization']
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
 export const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(thunk))
+  persistedReducer,
+  applyMiddleware(thunk)
 );
+
+export const Persistor = persistStore(store)

@@ -16,7 +16,4 @@ export async function sendMail(masterData, orderData) {
     masterData.surname,
     masterData.rating
   );
-
-  //Проверка и добавление нового клиента, если не существует
-  Api.checkClient(orderData[0][0], orderData[0][1]);
 }
