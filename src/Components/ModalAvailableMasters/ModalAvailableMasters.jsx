@@ -39,7 +39,7 @@ const ModalAvailableMasters = () => {
     >
       <div className={style.modal_content} onClick={(e) => e.stopPropagation()}>
         <div className={style.modal_container}>
-        <span className={style.backBtn}>
+        <div className={style.backBtn}>
         <img
       src="https://cdn4.iconfinder.com/data/icons/essential-app-2/16/back-left-arrow-botton-256.png"
       className={style.modal_img}
@@ -48,19 +48,19 @@ const ModalAvailableMasters = () => {
         dispatch(setModalOrder());
       }}
       ></img>
-      </span>
+      </div>
           {finaleMasters.length !== 0 ? (
             <h1 className={style.modal_h1}>{t("available.header")}</h1>
           ) : (
             <h1 className={style.modal_h1}>{t("available.emptyHeader")}</h1>
           )}
-          <span className={style.closeBtn}>
+          <div className={style.closeBtn}>
             <img
               src="https://cdn4.iconfinder.com/data/icons/miu/22/circle_close_delete_-128.png"
               className={style.modal_img}
               onClick={() => windowClose()}
             ></img>
-          </span>
+          </div>
           {masterListItem}
         </div>
       </div>
