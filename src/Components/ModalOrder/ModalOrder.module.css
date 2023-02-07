@@ -39,6 +39,8 @@
   border-radius: 5px;
   background: rgb(102, 102, 102);
   box-shadow: 1px 1px 50px #000;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .modal_form {
